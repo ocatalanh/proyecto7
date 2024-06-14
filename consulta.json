@@ -1,5 +1,5 @@
 {
-    "Your Current Country": "India", // Tu País Actual
+    "Your Current Country.": "India", // Tu País Actual
     "Your Current Zip Code / Pin Code": "400022", // Tu Código Postal / Código PIN Actual
     "Your Gender": "Male", // Tu Género
     "Which of the below factors influence the most about your career aspirations ?": "People from my circle, but not family members", // ¿Cuál de los siguientes factores influye más en tus aspiraciones profesionales?
@@ -15,13 +15,14 @@
     "What type of Manager would you work without looking into your watch ?": "Manager who explains what is expected, sets a goal and helps achieve it", // ¿Qué tipo de gerente te gustaría tener sin mirar tu reloj?
     "Which of the following setup you would like to work ?": "Work with 5 to 6 people in my team" // ¿En qué tipo de configuración preferirías trabajar?
 }
+
 {
     "Your Current Country": "India", // Tu País Actual
     "Your Current Zip Code / Pin Code": "679121", // Tu Código Postal / Código PIN Actual
     "Your Gender": "Male", // Tu Género
     "Which of the below factors influence the most about your career aspirations ?": "People from my circle, but not family members", // ¿Cuál de los siguientes factores influye más en tus aspiraciones profesionales?
     "Would you definitely pursue a Higher Education / Post Graduation outside of India ? If only you have to self sponsor it.": "Yes, I will earn and do that", // ¿Definitivamente perseguirías una educación superior / posgrado fuera de India si solo tienes que autofinanciarlo?
-    "How likely is that you will work for one employer for 3 years or more ?": "This will be hard to do, but if it is the right company I would try", // ¿Qué tan probable es que trabajes para un empleador durante 3 años o más?
+    //"How likely is that you will work for one employer for 3 years or more ?": "This will be hard to do, but if it is the right company I would try", // ¿Qué tan probable es que trabajes para un empleador durante 3 años o más?
     "Would you work for a company whose mission is not clearly defined and publicly posted.": "Yes", // ¿Trabajarías para una empresa cuya misión no esté claramente definida y publicada públicamente?
     "How likely would you work for a company whose mission is misaligned with their public actions or even their product ?": "Will work for them", // ¿Qué tan probable es que trabajes para una empresa cuya misión esté desalineada con sus acciones públicas o incluso con su producto?
     "How likely would you work for a company whose mission is not bringing social impact ?": "8", // ¿Qué tan probable es que trabajes para una empresa cuya misión no esté trayendo impacto social?
