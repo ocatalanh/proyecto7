@@ -39,19 +39,20 @@ def predict():
     
     # # Seleccionar columnas para X
     X = df[['TrabajariaEmpresaMisionNoDefinida', 'ProbabilidadTrabajarMisionDesalineada', 'ProbabilidadTrabajarSinImpactoSocial']]
-    
+        
     # # Obtener dummies
     dummies = df[['Genero', 'FactoresInfluenciaCarrera', 'EducacionSuperiorExtranjero', 'EntornoTrabajoPreferido', 'EmpleadoresPreferidos', 'EntornoAprendizajePreferido', 'TipoGerentePreferido']]
     df_encoded = one_hot_encode_dataframe(dummies)
-      
-
+    
     # Concatenar X con dummies
     X = pd.concat([X, df_encoded], axis=1)
-    return str(X.shape)
-
-
+    
     # Manejar variables multivaluadas
-    # multivariables = ['CarreraAspiracional', 'ConfiguracionPreferida']
+    multivariables = ['CarreraAspiracional', 'ConfiguracionPreferida']
+    
+    
+    
+    
     # X_multivar = split_and_group(df, multivariables)
     # X = pd.concat([X, X_multivar], axis=1)
     

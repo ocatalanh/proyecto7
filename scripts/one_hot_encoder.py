@@ -14,7 +14,7 @@ def one_hot_encode_dataframe(data: pd.DataFrame) -> pd.DataFrame:
     """
     
      # Cargar el OneHotEncoder entrenado
-    with open('onehot_encoder.pkl', 'rb') as f:
+    with open(r'C:\Users\ocata\OneDrive\Desktop\Proyecto7_DS\models\onehot_encoder.pkl', 'rb') as f:
         transformador = pickle.load(f)
     
     # Aplicar el OneHotEncoder a los datos nuevos
