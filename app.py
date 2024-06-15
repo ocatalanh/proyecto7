@@ -31,7 +31,7 @@ def predict():
     # reemplazar respuestas
     df = reemplazar(df)
     # Eliminar columnas no deseadas
-    df = df.drop(columns=['ProbabilidadLealtadLaboral', 'PaisActual', 'CodigoPostalActual'])
+    df = df.drop(columns=['PaisActual', 'CodigoPostalActual'])
         
     # # Reemplazar valores binarios
     df['TrabajariaEmpresaMisionNoDefinida'] = reemplazar_valores_binarios(df, 'TrabajariaEmpresaMisionNoDefinida')
@@ -50,55 +50,36 @@ def predict():
     # Manejar variables multivaluadas
     multivariables = ['CarreraAspiracional', 'ConfiguracionPreferida']
     
+    data_split = split_and_group(df,multivariables)
     
+    X = pd.concat([X, data_split], axis=1)
     
-    
-    # X_multivar = split_and_group(df, multivariables)
-    # X = pd.concat([X, X_multivar], axis=1)
-    
-    
+    with open(r'C:\Users\ocata\OneDrive\Desktop\Proyecto7_DS\models\escalador.pkl', 'rb') as file:
+        scaler = pickle.load(file)
 
-    # Estandarizar los datos
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
-    
-    # # Aplicar PCA
-    # pca = PCA(n_components=n_components)
-    # X_pca = pca.fit_transform(X_scaled)
-    
-    # return X_pca
+    X_scaled = scaler.transform(X)
 
+    with open(r'C:\Users\ocata\OneDrive\Desktop\Proyecto7_DS\models\pca.pkl', 'rb') as file:
+        pca = pickle.load(file)    
 
+    X_pca = pca.transform(X_scaled)
+ 
+    # Cargar el modelo
+    with open(r'C:\Users\ocata\OneDrive\Desktop\Proyecto7_DS\models\mejor_rf_modelo.pkl', 'rb') as f:
+         classifier = pickle.load(f)
 
+    # Realizar la predicción
+    prediction = classifier.predict(X_pca)
 
-####################################################
-
-
-
-
-
-
-
-
-
-    #     # Cargar el modelo
-    # with open(r'C:\Users\ocata\OneDrive\Desktop\Proyecto7_DS\models\mejor_rf_modelo.pickle', 'rb') as f:
-    #     classifier = pickle.load(f)
-
-    # # Realizar la predicción
-    # prediction = classifier.predict(query)
-
-    # #     # Devolver la respuesta basada en la predicción
-    # if prediction[0] == 0:
-    #     return "De ninguna forma, 3 años con un empleador es para volverse loco"
-    # elif prediction[0] == 1:
-    #     return "Eso sería difícil, pero si es la compañía correcta lo intentaría"
-    # elif prediction[0] == 2:
-    #     return "Trabajaría por 3 años o más"
-    # else:
-    #     return "Predicción no reconocida"
-    #except Exception as e:
-    #     return jsonify({"error": str(e)}), 500
+    # Devolver la respuesta basada en la predicción
+    if prediction[0] == 0:
+       return "De ninguna forma, 3 años con un empleador es para volverse loco"
+    elif prediction[0] == 1:
+       return "Eso sería difícil, pero si es la compañía correcta lo intentaría"
+    elif prediction[0] == 2:
+       return "Trabajaría por 3 años o más"
+    else:
+       return "Predicción no reconocida"
 
 if __name__ == "__main__":
     app.run(debug=True)
