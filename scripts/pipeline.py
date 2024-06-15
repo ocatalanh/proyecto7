@@ -3,15 +3,17 @@ from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.preprocessing import StandardScaler, FunctionTransformer
 from sklearn.decomposition import PCA
 from typing import List
+import pickle
 
 # Importar las funciones auxiliares desde los scripts
 from scripts.trad_columnas import trad_columnas
 from scripts.remp_valores_binarios import reemplazar_valores_binarios
 from scripts.one_hot_encoder import one_hot_encode_dataframe
 from scripts.split_and_group import split_and_group
+from scripts.traducir_respuestas import reemplazar
 
 
-def tuberia_transform(df: pd.DataFrame) -> pd.DataFrame:
+def tuberia_transform(query_df: pd.DataFrame) -> pd.DataFrame:
     """
     Transforma el DataFrame aplicando una serie de pasos, incluyendo traducción de columnas,
     reemplazo de valores binarios, codificación one-hot, división y agrupación de columnas,
@@ -23,22 +25,21 @@ def tuberia_transform(df: pd.DataFrame) -> pd.DataFrame:
     Returns:
     pd.DataFrame: El DataFrame transformado.
     """
-    n_components = 32  # Definir el número de componentes dentro de la función
-
-    # Traducir columnas
-    df = trad_columnas(df)
+    df = trad_columnas(query_df)
     
+    # reemplazar respuestas
+    df = reemplazar(df)
     # Eliminar columnas no deseadas
-    df = df.drop(columns=['ProbabilidadLealtadLaboral', 'PaisActual', 'CodigoPostalActual'])
-    
-    # Reemplazar valores binarios
+    df = df.drop(columns=['PaisActual', 'CodigoPostalActual'])
+        
+    # # Reemplazar valores binarios
     df['TrabajariaEmpresaMisionNoDefinida'] = reemplazar_valores_binarios(df, 'TrabajariaEmpresaMisionNoDefinida')
     df['ProbabilidadTrabajarMisionDesalineada'] = reemplazar_valores_binarios(df, 'ProbabilidadTrabajarMisionDesalineada')
     
-    # Seleccionar columnas para X
+    # # Seleccionar columnas para X
     X = df[['TrabajariaEmpresaMisionNoDefinida', 'ProbabilidadTrabajarMisionDesalineada', 'ProbabilidadTrabajarSinImpactoSocial']]
-    
-    # Obtener dummies
+        
+    # # Obtener dummies
     dummies = df[['Genero', 'FactoresInfluenciaCarrera', 'EducacionSuperiorExtranjero', 'EntornoTrabajoPreferido', 'EmpleadoresPreferidos', 'EntornoAprendizajePreferido', 'TipoGerentePreferido']]
     df_encoded = one_hot_encode_dataframe(dummies)
     
@@ -47,17 +48,29 @@ def tuberia_transform(df: pd.DataFrame) -> pd.DataFrame:
     
     # Manejar variables multivaluadas
     multivariables = ['CarreraAspiracional', 'ConfiguracionPreferida']
-    X_multivar = split_and_group(df, multivariables)
-    X = pd.concat([X, X_multivar], axis=1)
     
-    # Estandarizar los datos
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
+    data_split = split_and_group(df,multivariables)
     
-    # Aplicar PCA
-    pca = PCA(n_components=n_components)
-    X_pca = pca.fit_transform(X_scaled)
+    X = pd.concat([X, data_split], axis=1)
     
-    return X_pca
+    with open(r'C:\Users\ocata\OneDrive\Desktop\Proyecto7_DS\models\escalador.pkl', 'rb') as file:
+        scaler = pickle.load(file)
+
+    X_scaled = scaler.transform(X)
+
+    with open(r'C:\Users\ocata\OneDrive\Desktop\Proyecto7_DS\models\pca.pkl', 'rb') as file:
+        pca = pickle.load(file)    
+
+    X_pca = pca.transform(X_scaled)
+ 
+    # Cargar el modelo
+    with open(r'C:\Users\ocata\OneDrive\Desktop\Proyecto7_DS\models\mejor_rf_modelo.pkl', 'rb') as f:
+         classifier = pickle.load(f)
+
+    # Realizar la predicción
+    prediction = classifier.predict(X_pca)
+
+    return prediction
+    
 
 
