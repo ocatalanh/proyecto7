@@ -24,3 +24,20 @@ project/
 ├── environment.yml            # Configuración del entorno conda
 ├── Makefile                   # Archivo Make para automatización de tareas
 └── README.md                  # Documentación del proyecto
+```
+
+
+## Uso del Proyecto
+
+### Clonar el repositorio
+
+```sh
+git clone <URL_del_repositorio>
+cd Proyecto7_DS
+```
+
+### Crear y activar el entorno virtual
+
+```conda env create -f environment.yml
+conda activate proyecto7_ds
+```
