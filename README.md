@@ -1,5 +1,3 @@
-# proyecto7
-
 # Proyecto de Data Science: Proyecto7_DS
 # Generación Z
 
@@ -14,7 +12,7 @@ Predecir la lealtad del personal del hacia la empresa perteneciente al grupo soc
 Proyecto7_DS/
 ## Estructura del Proyecto
 
-```plaintext
+
 
 ├── data/                           # Directorio que contiene los datos
 │   ├── processed/                  # Datos procesados
@@ -68,15 +66,24 @@ La Generación Z es aquella nacida entre mediados de los 90 y principios de 2010
 
 # Uso del Proyecto
 
-### Clonar el repositorio
+## Clonar el repositorio
 
 ```sh
 git clone <https://github.com/ocatalanh/proyecto7.git>
 cd Proyecto7_DS
 ```
 
-### Crear y activar el entorno virtual
 
-```conda env create -f environment.yml
-conda activate proyecto7_ds
+## Crear activar el entono virtual y correr flask
+Ejecutar en la terminal 
+
+```sh
+make setup
+
 ```
+## Enviar un request mediante post
+* Ingresar a https://www.postman.com/
+* Configurar para enviar una request meadiante el metodo POST
+* Ingresar al Url http://127.0.0.1:5000/predice
+* arbrir el archivo consulta.json, copiar y pegar alguna de las consultas en el body del request formato raw
+* enviar y verificar respuesta
