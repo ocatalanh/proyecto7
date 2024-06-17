@@ -1,14 +1,19 @@
 import os
 
-def listar_archivos_y_subcarpetas(carpeta):
-    for ruta_directorio, subcarpetas, archivos in os.walk(carpeta):
-        print(f'Directorio: {ruta_directorio}')
-        for subcarpeta in subcarpetas:
-            print(f'  Subcarpeta: {subcarpeta}')
-        for archivo in archivos:
-            print(f'  Archivo: {archivo}')
+def listar_archivos(directorio):
+    for root, dirs, files in os.walk(directorio):
+        # Filtrar archivos y directorios ocultos
+        dirs[:] = [d for d in dirs if not d.startswith('.')]
+        files = [f for f in files if not f.startswith('.')]
+        
+        # Imprimir la ruta relativa del directorio actual
+        print(f"Directorio: {os.path.relpath(root, directorio)}")
+        
+        for file in files:
+            print(f"  Archivo: {file}")
+        
+        print()  # Línea en blanco para separar las carpetas
 
-
-# Especifica la ruta de la carpeta que quieres listar
-carpeta = r'C:\Users\ocata\OneDrive\Desktop\Proyecto7_DS'
-listar_archivos_y_subcarpetas(carpeta)
+if __name__ == "__main__":
+    directorio = input("Introduce el directorio a listar: ")
+    listar_archivos(directorio)
