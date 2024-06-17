@@ -72,6 +72,60 @@ La Generación Z es aquella nacida entre mediados de los 90 y principios de 2010
 git clone <https://github.com/ocatalanh/proyecto7.git>
 cd Proyecto7_DS
 ```
+## Instalar Make
+Antes de empezar, asegúrate de tener instalado `make` en tu sistema. Puedes instalarlo ejecutando los siguientes comandos:
+
+
+## Instalación de `make` con Chocolatey en Windows
+
+### Instalación de Chocolatey (si aún no está instalado)
+
+1. **Abrir PowerShell como administrador:**
+   - Haz clic derecho en el ícono de PowerShell en el menú de inicio.
+   - Selecciona "Ejecutar como administrador".
+
+2. **Instalar Chocolatey:**
+   - Ejecuta el siguiente comando en PowerShell como administrador:
+     ```bash
+     Set-ExecutionPolicy Bypass -Scope Process -Force; `
+     [System.Net.ServicePointManager]::SecurityProtocol = `
+     [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; `
+     iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+     ```
+   - Este comando descargará e instalará Chocolatey en tu sistema.
+
+3. **Verificar la instalación de Chocolatey:**
+   - Una vez completada la instalación, verifica que Chocolatey esté instalado correctamente ejecutando:
+     ```bash
+     choco --version
+     ```
+   - Deberías ver la versión de Chocolatey que se instaló.
+
+### Instalación de `make` con Chocolatey
+
+4. **Instalar `make`:**
+   - Una vez que tengas Chocolatey instalado y funcionando, puedes instalar `make` ejecutando el siguiente comando en PowerShell (administrador):
+     ```bash
+     choco install make
+     ```
+   - Chocolatey buscará la última versión estable de `make` y la instalará en tu sistema.
+
+5. **Verificar la instalación de `make`:**
+   - Después de la instalación, verifica que `make` esté instalado correctamente ejecutando:
+     ```bash
+     make --version
+     ```
+   - Deberías ver la versión de `make` que se instaló.
+
+### Uso de `make`
+
+Una vez instalado `make` con Chocolatey, puedes usarlo para ejecutar comandos definidos en un archivo Makefile en tu proyecto. Asegúrate de tener un Makefile adecuadamente configurado con las reglas y comandos necesarios para configurar el entorno, ejecutar scripts, etc.
+
+Por ejemplo, para ejecutar una regla `setup` definida en tu Makefile, puedes hacerlo ejecutando:
+```bash
+make setup
+```
+
 
 
 ## Crear activar el entono virtual y correr flask
