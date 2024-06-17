@@ -128,8 +128,8 @@ make setup
 
 
 
-## Crear activar el entono virtual y correr flask
-Ejecutar en la terminal 
+## Crear, activar el entono virtual y correr flask
+Ejecutar en la terminal el comando make setup, este instalará el entorno del proyecto, lo activara y correra la aplicación flask para probar el modelo
 
 ```sh
 make setup
@@ -141,3 +141,9 @@ make setup
 * Ingresar al Url http://127.0.0.1:5000/predice
 * arbrir el archivo consulta.json, copiar y pegar alguna de las consultas en el body del request formato raw
 * enviar y verificar respuesta
+
+## Respuestas esperadas
+ * Si en modelo el resultado es 0 indicara "Ningun grado de lealtad hacia la empresa"
+ * Si en modelo el resultado es 1 indicara "Mediano grado de lealtad hacia la empresa"
+ * Si en modelo el resultado es 2 indicara "Totalmente leal hacia la empresa"
+ * Culaquier otro caso indicara "Predicción no reconocida"
